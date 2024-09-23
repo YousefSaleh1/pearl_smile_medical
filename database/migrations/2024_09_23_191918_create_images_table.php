@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->morphs('imageable');
             $table->string('path');
-            $table->string('alt');
+            $table->json('alt');
             $table->timestamps();
         });
     }

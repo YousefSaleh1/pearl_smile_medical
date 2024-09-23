@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('medical_teams', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('specializations');
-            $table->string('experience');
-            $table->string('languages_spoken');
-            $table->text('resume');
+            $table->json('name');
+            $table->json('specializations');
+            $table->json('experience');
+            $table->json('languages_spoken');
+            $table->json('resume');
             $table->string('phone_number');
             $table->timestamps();
         });
