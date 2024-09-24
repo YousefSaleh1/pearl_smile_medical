@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('f_a_q_s', function (Blueprint $table) {
             $table->id();
             $table->foreignId('service_id')->constrained('services')->cascadeOnDelete();
-            $table->json('question');
-            $table->json('answer');
+            $table->string('question_en');
+            $table->string('question_ar');
+            $table->text('answer_en');
+            $table->text('answer_ar');
             $table->timestamps();
         });
     }

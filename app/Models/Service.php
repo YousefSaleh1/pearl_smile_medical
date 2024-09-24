@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Translatable\HasTranslations;
 
 class Service extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -18,20 +17,10 @@ class Service extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'description'
-    ];
-
-    /**
-     * The attributes that are translatable.
-     *
-     * These fields will have translations for different languages using the Spatie Translatable package.
-     *
-     * @var array<int, string> List of translatable attributes.
-     */
-    public $translatable = [
-        'title',
-        'description'
+        'title_en',
+        'title_ar',
+        'description_en',
+        'description_ar',
     ];
 
     /**
@@ -41,7 +30,7 @@ class Service extends Model
      */
     public function sections(): HasMany
     {
-        return $this->hasMany(Section::class, 'section_id', 'id');
+        return $this->hasMany(Section::class, 'service_id', 'id');
     }
 
     /**
@@ -51,7 +40,7 @@ class Service extends Model
      */
     public function faqs(): HasMany
     {
-        return $this->hasMany(FAQ::class, 'section_id', 'id');
+        return $this->hasMany(FAQ::class, 'service_id', 'id');
     }
 
     /**
@@ -61,7 +50,7 @@ class Service extends Model
      */
     public function bookings(): HasMany
     {
-        return $this->hasMany(Booking::class, 'section_id', 'id');
+        return $this->hasMany(Booking::class, 'service_id', 'id');
     }
 
     /**
@@ -71,7 +60,7 @@ class Service extends Model
      */
     public function offers(): HasMany
     {
-        return $this->hasMany(Offer::class, 'section_id', 'id');
+        return $this->hasMany(Offer::class, 'service_id', 'id');
     }
 
     /**

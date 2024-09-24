@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Spatie\Translatable\HasTranslations;
 
 class Blog extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -17,22 +16,12 @@ class Blog extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'title',
-        'description',
-        'tags'
-    ];
-
-    /**
-     * The attributes that are translatable.
-     *
-     * These fields will have translations for different languages using the Spatie Translatable package.
-     *
-     * @var array<int, string> List of translatable attributes.
-     */
-    public $translatable = [
-        'title',
-        'description',
-        'tags'
+        'title_en',
+        'title_ar',
+        'description_en',
+        'description_ar',
+        'tags_en',
+        'tags_ar',
     ];
 
     /**
@@ -41,7 +30,8 @@ class Blog extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'tags' => 'array',
+        'tags_en' => 'array',
+        'tags_ar' => 'array',
     ];
 
     /**

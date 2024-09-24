@@ -16,7 +16,8 @@ return new class extends Migration
             $table->morphs('videoable');
             $table->string('path');
             $table->decimal('size');
-            $table->json('description');
+            $table->text('description_en');
+            $table->text('description_ar');
             $table->timestamps();
         });
     }
