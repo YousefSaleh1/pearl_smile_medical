@@ -8,7 +8,7 @@ use Spatie\Translatable\HasTranslations;
 
 class WorkingTime extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -16,19 +16,8 @@ class WorkingTime extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'day',
+        'days',
         'of_time',
         'until_time',
-    ];
-
-    /**
-     * The attributes that are translatable.
-     *
-     * These fields will have translations for different languages using the Spatie Translatable package.
-     *
-     * @var array<int, string> List of translatable attributes.
-     */
-    public $translatable = [
-        'day',
     ];
 }

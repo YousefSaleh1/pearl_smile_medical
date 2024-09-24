@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('working_times', function (Blueprint $table) {
             $table->id();
-            $table->json('day');
+            $table->string('days');
             $table->time('of_time');
             $table->time('until_time');
             $table->timestamps();
