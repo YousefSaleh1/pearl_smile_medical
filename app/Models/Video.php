@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Spatie\Translatable\HasTranslations;
 
 class Video extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -21,18 +20,8 @@ class Video extends Model
         'videoable_type',
         'path',
         'size',
-        'description',
-    ];
-
-    /**
-     * The attributes that are translatable.
-     *
-     * These fields will have translations for different languages using the Spatie Translatable package.
-     *
-     * @var array<int, string> List of translatable attributes.
-     */
-    public $translatable = [
-        'description',
+        'description_en',
+        'description_ar',
     ];
 
     /**

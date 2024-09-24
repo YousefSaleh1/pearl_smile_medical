@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Spatie\Translatable\HasTranslations;
 
 class Section extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -19,20 +18,10 @@ class Section extends Model
      */
     protected $fillable = [
         'srvice_id',
-        'section_name',
-        'description'
-    ];
-
-    /**
-     * The attributes that are translatable.
-     *
-     * These fields will have translations for different languages using the Spatie Translatable package.
-     *
-     * @var array<int, string> List of translatable attributes.
-     */
-    public $translatable = [
-        'section_name',
-        'description'
+        'section_name_en',
+        'section_name_ar',
+        'description_en',
+        'description_ar',
     ];
 
     /**

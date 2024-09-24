@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->json('title');
-            $table->json('description');
-            $table->json('tags');
+            $table->string('title_en');
+            $table->string('title_ar');
+            $table->text('description_en');
+            $table->text('description_ar');
+            $table->array('tags_en');
+            $table->array('tags_ar');
             $table->timestamps();
         });
     }

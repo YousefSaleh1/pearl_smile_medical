@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Spatie\Translatable\HasTranslations;
 
 class MedicalTeam extends Model
 {
-    use HasFactory, HasTranslations;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -18,28 +17,15 @@ class MedicalTeam extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'specializations',
-        'experience',
-        'languages_spoken',
-        'resume',
+        'name_en',
+        'name_ar',
+        'specializations_en',
+        'specializations_ar',
+        'resume_en',
+        'resume_ar',
         'phone_number'
     ];
 
-    /**
-     * The attributes that are translatable.
-     *
-     * These fields will have translations for different languages using the Spatie Translatable package.
-     *
-     * @var array<int, string> List of translatable attributes.
-     */
-    public $translatable = [
-        'name',
-        'specializations',
-        'experience',
-        'languages_spoken',
-        'resume',
-    ];
 
     /**
      * The services that belong to the MedicalTeam
