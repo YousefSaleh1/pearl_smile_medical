@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('title_ar');
             $table->text('description_en');
             $table->text('description_ar');
-            $table->array('tags_en');
-            $table->array('tags_ar');
+            $table->json('tags_en');
+            $table->json('tags_ar');
             $table->timestamps();
         });
     }
