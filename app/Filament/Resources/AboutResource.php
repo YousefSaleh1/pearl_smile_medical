@@ -23,12 +23,6 @@ class AboutResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title_en')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('title_ar')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\Textarea::make('description_en')
                     ->required()
                     ->maxLength(65535)
@@ -67,10 +61,6 @@ class AboutResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title_en')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('title_ar')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('facebook_link')
