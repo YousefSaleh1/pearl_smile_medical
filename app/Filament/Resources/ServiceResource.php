@@ -21,7 +21,7 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-c-briefcase';
 
     public static function form(Form $form): Form
     {
@@ -204,7 +204,7 @@ class ServiceResource extends Resource
                                                     ->schema([
                                                         Forms\Components\TextInput::make('question_en')
                                                             ->label('Question (English)')
-                                                            ->autocapitalize('words')
+                                                            // ->autocapitalize('words')
                                                             ->required(),
 
                                                         Forms\Components\TextInput::make('question_ar')
@@ -213,7 +213,7 @@ class ServiceResource extends Resource
 
                                                         Forms\Components\MarkdownEditor::make('answer_en')
                                                             ->label('Answer (English)')
-                                                            ->autocapitalize('words')
+                                                            // ->autocapitalize('words')
                                                             ->disableToolbarButtons([
                                                                 'attachFiles',
                                                                 'teable',
