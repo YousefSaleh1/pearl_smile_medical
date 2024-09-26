@@ -19,7 +19,6 @@ class Video extends Model
         'videoable_id',
         'videoable_type',
         'path',
-        'size',
         'description_en',
         'description_ar',
     ];
