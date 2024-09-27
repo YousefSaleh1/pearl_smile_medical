@@ -69,7 +69,9 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->sidebarFullyCollapsibleOnDesktop()
-            ->brandLogo(asset('Logo.png.png'))
+            ->brandLogo(asset('Logo.svg'))
+            ->favicon(asset('Logo.ico'))
+            ->databaseNotifications()
             ->darkMode(false);
     }
 }
