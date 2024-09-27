@@ -85,7 +85,6 @@ class GalaryResource extends Resource
                             ]),
                     ]),
             ]);
-
     }
 
     public static function table(Table $table): Table
@@ -93,6 +92,7 @@ class GalaryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('category')
+                    ->label('Category')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('images.path')
                     ->label('Images')
@@ -102,24 +102,25 @@ class GalaryResource extends Resource
                     ->limit(3)
                     ->limitedRemainingText()
                     ->toggleable(),
-
-                    ViewColumn::make('videos.path')
+                ViewColumn::make('videos.path')
                     ->label('Videos')
-                    ->view('components.video-column')
                     ->toggleable(),
-
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('category')
-                ->options(Category::class)
+                    ->options(Category::class)
             ])
             ->deferFilters()
             ->actions([

@@ -239,10 +239,10 @@ class ServiceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title_en')
                     ->searchable()
-                    ->label('Title (English)'),
+                    ->label('Title'),
                 Tables\Columns\TextColumn::make('description_en')
                     ->searchable()
-                    ->label('Description (English)'),
+                    ->label('Description'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->searchable()
                     ->label('Created At')

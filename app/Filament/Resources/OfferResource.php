@@ -78,6 +78,7 @@ class OfferResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('service.title_en')
+                    ->label('Service')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\ImageColumn::make('images.path')
@@ -89,11 +90,13 @@ class OfferResource extends Resource
                     ->limitedRemainingText()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
                     ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
                     ->searchable()
                     ->dateTime()
                     ->sortable()

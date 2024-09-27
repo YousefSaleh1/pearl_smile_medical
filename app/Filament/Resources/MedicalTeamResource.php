@@ -128,13 +128,13 @@ class MedicalTeamResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name_en')
-                    ->label('Name (English)')
+                    ->label('Name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('specializations_en')
-                    ->label('Specializations (English)')
+                    ->label('Specializations')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('resume_en')
-                    ->label('Resume (English)')
+                    ->label('Resume')
                     ->words(6)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone_number')

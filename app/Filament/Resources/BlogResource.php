@@ -80,23 +80,29 @@ class BlogResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title_en')
+                    ->label('Title')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description_en')
+                    ->label('Description')
                     ->searchable()
                     ->words(6),
                 Tables\Columns\TextColumn::make('tags_en')
+                    ->label('Tags')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('images.path')
                     ->label('Image')
                     ->size(50) // Adjust the size of the image thumbnail
                     ->getStateUsing(fn ($record) => $record->images->first()?->path) // Get the first image's path
-
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -40,16 +40,18 @@ class WorkingTimeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('days')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('of_time'),
-                Tables\Columns\TextColumn::make('until_time'),
+                    ->label('Days'),
+                Tables\Columns\TextColumn::make('of_time')
+                    ->label('Of Time'),
+                Tables\Columns\TextColumn::make('until_time')
+                    ->label('Until Time'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([

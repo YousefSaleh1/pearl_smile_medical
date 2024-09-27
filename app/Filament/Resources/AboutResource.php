@@ -89,24 +89,27 @@ class AboutResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('facebook_link')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('instegram_link')
+                    ->label('Email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('whatsapp')
+                    ->label('Whatsapp')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone_numbers')
+                    ->label('Phone Number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address_en')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address_ar')
+                    ->label('Address (English)')
+                    ->words(5)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
