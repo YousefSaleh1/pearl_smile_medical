@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -40,6 +41,18 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Clinic Information'),
+                NavigationGroup::make()
+                    ->label('Services and Offers'),
+                NavigationGroup::make()
+                    ->label('Medical Team'),
+                NavigationGroup::make()
+                    ->label('Content & Media'),
+                NavigationGroup::make()
+                    ->label('Customer Interactions'),
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -23,6 +23,8 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-c-briefcase';
 
+    protected static ?string $navigationGroup = 'Services and Offers';
+
     public static function form(Form $form): Form
     {
         return $form

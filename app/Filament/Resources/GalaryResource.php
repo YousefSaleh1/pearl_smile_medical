@@ -22,7 +22,10 @@ class GalaryResource extends Resource
 {
     protected static ?string $model = Galary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
+
+    protected static ?string $navigationGroup = 'Content & Media';
+
 
     public static function form(Form $form): Form
     {
@@ -104,7 +107,7 @@ class GalaryResource extends Resource
                     ->label('Videos')
                     ->view('components.video-column')
                     ->toggleable(),
-                    
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

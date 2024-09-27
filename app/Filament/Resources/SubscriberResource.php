@@ -19,6 +19,8 @@ class SubscriberResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-user-circle';
 
+    protected static ?string $navigationGroup = 'Customer Interactions';
+
     public static function form(Form $form): Form
     {
         return $form

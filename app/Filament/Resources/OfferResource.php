@@ -21,6 +21,8 @@ class OfferResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-c-gift';
 
+    protected static ?string $navigationGroup = 'Services and Offers';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -76,6 +78,14 @@ class OfferResource extends Resource
                 Tables\Columns\TextColumn::make('service.title_en')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\ImageColumn::make('images.path')
+                    ->label('Images')
+                    ->circular()
+                    ->stacked()
+                    ->ring(1)
+                    ->limit(3)
+                    ->limitedRemainingText()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->searchable()
                     ->dateTime()
@@ -89,11 +99,11 @@ class OfferResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('service_id')
-                ->label('Service')
-                ->relationship('service', 'title_en')
-                ->searchable()
-                ->preload()
-                ->multiple(),
+                    ->label('Service')
+                    ->relationship('service', 'title_en')
+                    ->searchable()
+                    ->preload()
+                    ->multiple(),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

@@ -12,12 +12,15 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class AboutResource extends Resource
 {
     protected static ?string $model = About::class;
 
     protected static ?string $navigationIcon = 'heroicon-s-information-circle';
+
+    protected static ?string $navigationGroup = 'Clinic Information';
 
     public static function form(Form $form): Form
     {
@@ -54,6 +57,30 @@ class AboutResource extends Resource
                 Forms\Components\TextInput::make('address_ar')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Repeater::make('videos')
+                    ->label('Video')
+                    ->relationship('videos')
+                    ->schema([
+                        Forms\Components\FileUpload::make('path')
+                            ->label('Upload Video')
+                            ->preserveFilenames()
+                            ->directory('video/Galary')
+                            ->getUploadedFileNameForStorageUsing(
+                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                    ->prepend(now()->timestamp),
+                            )
+                            ->openable()
+                            ->downloadable()
+                            ->nullable(),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('description_en')
+                                    ->label('Description (English)'),
+
+                                Forms\Components\TextInput::make('description_ar')
+                                    ->label('Description (Arabic)'),
+                            ]),
+                    ]),
             ]);
     }
 

@@ -19,6 +19,8 @@ class WorkingTimeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-clock';
 
+    protected static ?string $navigationGroup = 'Clinic Information';
+
     public static function form(Form $form): Form
     {
         return $form

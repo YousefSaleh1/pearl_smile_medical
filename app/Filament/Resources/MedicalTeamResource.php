@@ -21,6 +21,8 @@ class MedicalTeamResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-user-group';
 
+    protected static ?string $navigationGroup = 'Medical Team';
+
     public static function form(Form $form): Form
     {
         return $form
