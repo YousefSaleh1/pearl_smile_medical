@@ -98,7 +98,7 @@ class AboutResource extends Resource
                     ->label('Phone Number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address_en')
-                    ->label('Address (English)')
+                    ->label('Address')
                     ->words(5)
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
