@@ -165,14 +165,7 @@ class ServiceResource extends Resource
                                                             )
                                                             ->openable()
                                                             ->downloadable()
-                                                            ->required()
-                                                            ->saveUploadedFileUsing(function ($file, $set) {
-                                                                $sizeInMB = $file->getSize() / 1024 / 1024;
-
-                                                                $set('size', $sizeInMB);
-
-                                                                return $file->store('videos');
-                                                            }),
+                                                            ->required(),
 
                                                         Forms\Components\Grid::make(2)
                                                             ->schema([
@@ -213,7 +206,6 @@ class ServiceResource extends Resource
 
                                                         Forms\Components\MarkdownEditor::make('answer_en')
                                                             ->label('Answer (English)')
-                                                            ->autocapitalize('words')
                                                             ->disableToolbarButtons([
                                                                 'attachFiles',
                                                                 'teable',

@@ -55,7 +55,6 @@ class MedicalTeamResource extends Resource
                     ->maxLength(65535),
                 Forms\Components\TextInput::make('phone_number')
                     ->tel()
-                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\MultiSelect::make('services')
@@ -106,14 +105,7 @@ class MedicalTeamResource extends Resource
                             )
                             ->openable()
                             ->downloadable()
-                            ->required()
-                            ->saveUploadedFileUsing(function ($file, $set) {
-                                $sizeInMB = $file->getSize() / 1024 / 1024;
-
-                                $set('size', $sizeInMB);
-
-                                return $file->store('videos');
-                            }),
+                            ->required(),
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('description_en')
@@ -145,7 +137,8 @@ class MedicalTeamResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->label('Phone Number')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->searchable()
                     ->label('Created At')

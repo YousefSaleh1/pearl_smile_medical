@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\Storage;
 
 class Video extends Model
 {
@@ -19,7 +20,6 @@ class Video extends Model
         'videoable_id',
         'videoable_type',
         'path',
-        'size',
         'description_en',
         'description_ar',
     ];
