@@ -121,6 +121,7 @@ class GalaryResource extends Resource
                 SelectFilter::make('category')
                 ->options(Category::class)
             ])
+            ->deferFilters()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

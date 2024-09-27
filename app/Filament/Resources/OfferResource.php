@@ -107,6 +107,7 @@ class OfferResource extends Resource
                     ->preload()
                     ->multiple(),
             ])
+            ->deferFilters()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

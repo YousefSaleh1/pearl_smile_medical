@@ -95,6 +95,7 @@ class BookingResource extends Resource
                     ->preload()
                     ->multiple(),
             ])
+            ->deferFilters()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
