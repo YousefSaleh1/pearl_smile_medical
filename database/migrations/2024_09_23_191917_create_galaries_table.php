@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('galaries', function (Blueprint $table) {
             $table->id();
-            $table->enum('category', ['photo', 'video']);
+            $table->string('category');
             $table->timestamps();
         });
     }
