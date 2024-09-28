@@ -23,6 +23,10 @@ class ServiceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-c-briefcase';
 
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationGroup = 'Services and Offers';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -32,10 +36,9 @@ class ServiceResource extends Resource
                         Forms\Components\Tabs::make('Service Details')
                             ->tabs([
 
-                                // Tab for Service with English and Arabic fields
                                 Forms\Components\Tabs\Tab::make('Service')
                                     ->schema([
-                                        Forms\Components\Grid::make(2) // Create a grid layout
+                                        Forms\Components\Grid::make(2)
                                             ->schema([
                                                 Forms\Components\TextInput::make('title_en')
                                                     ->label('Title (English)')
@@ -65,23 +68,23 @@ class ServiceResource extends Resource
                                                         'teable',
                                                     ])
                                                     ->required(),
+
                                                 Forms\Components\MultiSelect::make('medical_teams')
                                                     ->label('Medical Teams')
                                                     ->relationship('medical_teams', 'name_en')
                                                     ->columnSpanFull()
-                                                    ->nullable(),
-
+                                                    ->nullable()
+                                                    ->placeholder('Select Medical Teams'),
                                             ]),
                                     ]),
 
-                                // Tab for Sections with English and Arabic fields
                                 Forms\Components\Tabs\Tab::make('Sections')
                                     ->schema([
                                         Forms\Components\Repeater::make('sections')
                                             ->label('Sections')
                                             ->relationship('sections')
                                             ->schema([
-                                                Forms\Components\Grid::make(2) // Create a grid layout for sections
+                                                Forms\Components\Grid::make(2)
                                                     ->schema([
                                                         Forms\Components\TextInput::make('section_name_en')
                                                             ->label('Section Name (English)')
@@ -111,10 +114,8 @@ class ServiceResource extends Resource
                                                                 'teable',
                                                             ])
                                                             ->required(),
-
                                                     ]),
 
-                                                // Image upload for section with alt text in both languages
                                                 Forms\Components\Repeater::make('images')
                                                     ->label('Image')
                                                     ->relationship('images')
@@ -126,14 +127,14 @@ class ServiceResource extends Resource
                                                             ->directory('image/Sections')
                                                             ->imageEditor()
                                                             ->getUploadedFileNameForStorageUsing(
-                                                                fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                                                                     ->prepend(now()->timestamp),
                                                             )
                                                             ->openable()
                                                             ->downloadable()
                                                             ->required(),
 
-                                                        Forms\Components\Grid::make(2) // Create a grid layout for alt text
+                                                        Forms\Components\Grid::make(2)
                                                             ->schema([
                                                                 Forms\Components\TextInput::make('alt_en')
                                                                     ->label('Alt Text (English)')
@@ -160,19 +161,12 @@ class ServiceResource extends Resource
                                                             ->preserveFilenames()
                                                             ->directory('video/Sections')
                                                             ->getUploadedFileNameForStorageUsing(
-                                                                fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                                                                     ->prepend(now()->timestamp),
                                                             )
                                                             ->openable()
                                                             ->downloadable()
-                                                            ->required()
-                                                            ->saveUploadedFileUsing(function ($file, $set) {
-                                                                $sizeInMB = $file->getSize() / 1024 / 1024;
-
-                                                                $set('size', $sizeInMB);
-
-                                                                return $file->store('videos');
-                                                            }),
+                                                            ->required(),
 
                                                         Forms\Components\Grid::make(2)
                                                             ->schema([
@@ -193,18 +187,16 @@ class ServiceResource extends Resource
                                             ->createItemButtonLabel('Add Section'),
                                     ]),
 
-                                // Tab for FAQs with English and Arabic fields
                                 Forms\Components\Tabs\Tab::make('FAQs')
                                     ->schema([
                                         Forms\Components\Repeater::make('faqs')
                                             ->label('FAQs')
                                             ->relationship('faqs')
                                             ->schema([
-                                                Forms\Components\Grid::make(2) // Create a grid layout for FAQs
+                                                Forms\Components\Grid::make(2)
                                                     ->schema([
                                                         Forms\Components\TextInput::make('question_en')
                                                             ->label('Question (English)')
-                                                            // ->autocapitalize('words')
                                                             ->required(),
 
                                                         Forms\Components\TextInput::make('question_ar')
@@ -213,7 +205,6 @@ class ServiceResource extends Resource
 
                                                         Forms\Components\MarkdownEditor::make('answer_en')
                                                             ->label('Answer (English)')
-                                                            // ->autocapitalize('words')
                                                             ->disableToolbarButtons([
                                                                 'attachFiles',
                                                                 'teable',
@@ -233,9 +224,11 @@ class ServiceResource extends Resource
                                     ]),
                             ]),
                     ])
-                    ->columnSpanFull(), // Full width for the card
+                    ->columnSpanFull()
+                    ->description('Please fill in all the required fields for the service details.'),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -243,10 +236,10 @@ class ServiceResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title_en')
                     ->searchable()
-                    ->label('Title (English)'),
+                    ->label('Title'),
                 Tables\Columns\TextColumn::make('description_en')
                     ->searchable()
-                    ->label('Description (English)'),
+                    ->label('Description'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->searchable()
                     ->label('Created At')
@@ -268,14 +261,13 @@ class ServiceResource extends Resource
                 ->preload()
                 ->multiple(),
             ])
+            ->deferFilters()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class About extends Model
 {
@@ -26,4 +27,16 @@ class About extends Model
         'address_ar'
     ];
 
+    /**
+     * Get all of the videos for the medical team.
+     *
+     * This method defines a polymorphic one-to-many relationship between the MedicalTeam and Video models.
+     * A medical team can have multiple videos associated with it.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function videos(): MorphMany
+    {
+        return $this->morphMany(Video::class, 'videoable');
+    }
 }

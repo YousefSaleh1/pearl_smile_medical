@@ -19,35 +19,53 @@ class WorkingTimeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-clock';
 
+    protected static ?string $navigationGroup = 'Clinic Information';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('days')
+                    ->label('Working Days')
+                    ->placeholder('Enter the working days (e.g., Monday to Friday)')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->helperText('Example: Monday to Friday'),
+
                 Forms\Components\TimePicker::make('of_time')
-                    ->required(),
+                    ->label('Start Time')
+                    ->placeholder('Select the starting time')
+                    ->required()
+                    ->minutesStep(15)
+                    ->helperText('Choose the start time of the working hours'),
+
                 Forms\Components\TimePicker::make('until_time')
-                    ->required(),
+                    ->label('End Time')
+                    ->placeholder('Select the ending time')
+                    ->required()
+                    ->minutesStep(15)
+                    ->helperText('Choose the end time of the working hours'),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('days')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('of_time'),
-                Tables\Columns\TextColumn::make('until_time'),
+                    ->label('Days'),
+                Tables\Columns\TextColumn::make('of_time')
+                    ->label('Of Time'),
+                Tables\Columns\TextColumn::make('until_time')
+                    ->label('Until Time'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
@@ -58,9 +76,7 @@ class WorkingTimeResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

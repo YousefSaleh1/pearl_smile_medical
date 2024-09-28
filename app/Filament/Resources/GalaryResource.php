@@ -22,17 +22,24 @@ class GalaryResource extends Resource
 {
     protected static ?string $model = Galary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
+
+    protected static ?string $navigationGroup = 'Content & Media';
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Select::make('category')
+                Forms\Components\Select::make('category')
+                    ->label('Category')
                     ->options(Category::class)
-                    ->columnSpan('full'),
+                    ->columnSpan('full')
+                    ->required()
+                    ->placeholder('Select a category'),
+
                 Forms\Components\Repeater::make('images')
-                    ->label('Image')
+                    ->label('Images')
                     ->relationship('images')
                     ->schema([
                         Forms\Components\FileUpload::make('path')
@@ -46,19 +53,27 @@ class GalaryResource extends Resource
                             )
                             ->openable()
                             ->downloadable()
-                            ->nullable(),
+                            ->required(),
 
-                        Forms\Components\Grid::make(2) // Create a grid layout for alt text
+                        Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('alt_en')
-                                    ->label('Alt Text (English)'),
+                                    ->label('Alt Text (English)')
+                                    ->placeholder('Enter alt text in English')
+                                    ->required(),
 
                                 Forms\Components\TextInput::make('alt_ar')
-                                    ->label('Alt Text (Arabic)'),
+                                    ->label('Alt Text (Arabic)')
+                                    ->placeholder('Enter alt text in Arabic')
+                                    ->required(),
                             ]),
-                    ]),
+                    ])
+                    ->columns(1)
+                    ->maxItems(5)
+                    ->defaultItems(1),
+
                 Forms\Components\Repeater::make('videos')
-                    ->label('Video')
+                    ->label('Videos')
                     ->relationship('videos')
                     ->schema([
                         Forms\Components\FileUpload::make('path')
@@ -71,25 +86,33 @@ class GalaryResource extends Resource
                             )
                             ->openable()
                             ->downloadable()
-                            ->nullable(),
+                            ->required(),
+
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('description_en')
-                                    ->label('Description (English)'),
+                                    ->label('Description (English)')
+                                    ->placeholder('Enter video description in English'),
 
                                 Forms\Components\TextInput::make('description_ar')
-                                    ->label('Description (Arabic)'),
+                                    ->label('Description (Arabic)')
+                                    ->placeholder('Enter video description in Arabic'),
                             ]),
-                    ]),
+                    ])
+                    ->columns(1)
+                    ->maxItems(5)
+                    ->defaultItems(1),
             ]);
-
     }
+
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('category')
+                    ->label('Category')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('images.path')
                     ->label('Images')
@@ -99,33 +122,33 @@ class GalaryResource extends Resource
                     ->limit(3)
                     ->limitedRemainingText()
                     ->toggleable(),
-
-                    ViewColumn::make('videos.path')
+                ViewColumn::make('videos.path')
                     ->label('Videos')
-                    ->view('components.video-column')
                     ->toggleable(),
-                    
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->searchable()
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('category')
-                ->options(Category::class)
+                    ->options(Category::class)
             ])
+            ->deferFilters()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

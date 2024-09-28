@@ -2,9 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\BookingResource\Widgets\BookingCountWidget;
+use App\Filament\Resources\SubscriberResource\Widgets\SubscriberCountWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -41,6 +44,18 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Clinic Information'),
+                NavigationGroup::make()
+                    ->label('Services and Offers'),
+                NavigationGroup::make()
+                    ->label('Medical Team'),
+                NavigationGroup::make()
+                    ->label('Content & Media'),
+                NavigationGroup::make()
+                    ->label('Customer Interactions'),
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -54,6 +69,11 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->sidebarFullyCollapsibleOnDesktop()
+            ->brandLogo(asset('Logo.svg'))
+            ->favicon(asset('Logo.ico'))
+            ->databaseNotifications()
+            ->darkMode(false);
     }
 }
