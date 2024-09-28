@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Booking;
+use App\Models\User;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 
@@ -13,19 +14,20 @@ class BookingObserver
      */
     public function created(Booking $booking): void
     {
+        $recipient = User::where('email', 'admin@admin.com')->first();
         Notification::make()
             ->title('New Booking Added')
             ->success()
             ->body('A new booking was made by ' . $booking->name . ' for the service: ' . $booking->service->title_en . '.')
             ->actions([
-                Action::make('markAsUnread')
+                Action::make('view')
                     ->button()
-                    ->markAsUnread(),
+                    ->markAsRead(),
                 Action::make('markAsUnread')
                     ->button()
                     ->markAsUnread(),
             ])
-            ->send();
+            ->sendToDatabase($recipient);
     }
 
     /**

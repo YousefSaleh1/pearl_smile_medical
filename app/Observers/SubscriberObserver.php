@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Subscriber;
+use App\Models\User;
 use Filament\Notifications\Actions\Action;
 use Filament\Notifications\Notification;
 
@@ -13,19 +14,20 @@ class SubscriberObserver
      */
     public function created(Subscriber $subscriber): void
     {
+        $recipient = User::where('email', 'admin@admin.com')->first();
         Notification::make()
-        ->title('New Subscriber Added')
-        ->success()
-        ->body('A new subscriber has joined with the email: ' . $subscriber->email . '.')
-        ->actions([
-            Action::make('markAsUnread')
-                ->button()
-                ->markAsUnread(),
-            Action::make('markAsUnread')
-                ->button()
-                ->markAsUnread(),
-        ])
-        ->send();
+            ->title('New Subscriber Added')
+            ->success()
+            ->body('A new subscriber has joined with the email: ' . $subscriber->email . '.')
+            ->actions([
+                Action::make('view')
+                    ->button()
+                    ->markAsRead(),
+                Action::make('markAsUnread')
+                    ->button()
+                    ->markAsUnread(),
+            ])
+            ->sendToDatabase($recipient);
     }
 
     /**
