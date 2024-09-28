@@ -27,99 +27,155 @@ class MedicalTeamResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name_en')
-                    ->required()
-                    ->autocapitalize('words')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name_ar')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('specializations_en')
-                    ->required()
-                    ->autocapitalize('words')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('specializations_ar')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\MarkdownEditor::make('resume_en')
-                    ->required()
-                    ->disableToolbarButtons([
-                        'attachFiles',
-                        'teable',
-                    ])
-                    ->maxLength(65535),
-                Forms\Components\MarkdownEditor::make('resume_ar')
-                    ->required()
-                    ->disableToolbarButtons([
-                        'attachFiles',
-                        'teable',
-                    ])
-                    ->maxLength(65535),
-                Forms\Components\TextInput::make('phone_number')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\MultiSelect::make('services')
-                    ->label('Services')
-                    ->relationship('services', 'title_en')
-                    ->nullable(),
-                Forms\Components\Repeater::make('images')
-                    ->label('Image')
-                    ->relationship('images')
-                    ->maxItems(1)
+                Forms\Components\Card::make()
                     ->schema([
-                        Forms\Components\FileUpload::make('path')
-                            ->label('Upload Image')
-                            ->preserveFilenames()
-                            ->directory('image/MedicalTeams')
-                            ->imageEditor()
-                            ->getUploadedFileNameForStorageUsing(
-                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                    ->prepend(now()->timestamp),
-                            )
-                            ->openable()
-                            ->downloadable()
-                            ->required(),
 
-                        Forms\Components\Grid::make(2) // Create a grid layout for alt text
+                        // Section for Personal Information
+                        Forms\Components\Section::make('Personal Information')
                             ->schema([
-                                Forms\Components\TextInput::make('alt_en')
-                                    ->label('Alt Text (English)')
-                                    ->required(),
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name_en')
+                                            ->label('Name (English)')
+                                            ->required()
+                                            ->autocapitalize('words')
+                                            ->maxLength(255)
+                                            ->placeholder('Enter name in English'),
 
-                                Forms\Components\TextInput::make('alt_ar')
-                                    ->label('Alt Text (Arabic)')
-                                    ->required(),
+                                        Forms\Components\TextInput::make('name_ar')
+                                            ->label('Name (Arabic)')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->placeholder('Enter name in Arabic'),
+                                    ]),
+
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('phone_number')
+                                            ->label('Phone Number')
+                                            ->tel()
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->placeholder('Enter phone number'),
+
+                                        Forms\Components\TextInput::make('email')
+                                            ->label('Email Address')
+                                            ->email()
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->placeholder('example@domain.com'),
+                                    ]),
                             ]),
-                    ]),
-                Forms\Components\Repeater::make('videos')
-                    ->label('Video')
-                    ->relationship('videos')
-                    ->maxItems(1)
-                    ->schema([
-                        Forms\Components\FileUpload::make('path')
-                            ->label('Upload Video')
-                            ->preserveFilenames()
-                            ->directory('video/MedicalTeams')
-                            ->getUploadedFileNameForStorageUsing(
-                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                    ->prepend(now()->timestamp),
-                            )
-                            ->openable()
-                            ->downloadable()
-                            ->required(),
-                        Forms\Components\Grid::make(2)
+
+                        // Section for Professional Details
+                        Forms\Components\Section::make('Professional Details')
                             ->schema([
-                                Forms\Components\TextInput::make('description_en')
-                                    ->label('Description (English)')
-                                    ->required(),
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('specializations_en')
+                                            ->label('Specializations (English)')
+                                            ->required()
+                                            ->autocapitalize('words')
+                                            ->maxLength(255)
+                                            ->placeholder('Enter specializations in English'),
 
-                                Forms\Components\TextInput::make('description_ar')
-                                    ->label('Description (Arabic)')
-                                    ->required(),
+                                        Forms\Components\TextInput::make('specializations_ar')
+                                            ->label('Specializations (Arabic)')
+                                            ->required()
+                                            ->maxLength(255)
+                                            ->placeholder('Enter specializations in Arabic'),
+                                    ]),
+
+                                Forms\Components\MarkdownEditor::make('resume_en')
+                                    ->label('Resume (English)')
+                                    ->required()
+                                    ->disableToolbarButtons(['attachFiles', 'teable'])
+                                    ->maxLength(65535)
+                                    ->placeholder('Enter resume details in English'),
+
+                                Forms\Components\MarkdownEditor::make('resume_ar')
+                                    ->label('Resume (Arabic)')
+                                    ->required()
+                                    ->disableToolbarButtons(['attachFiles', 'teable'])
+                                    ->maxLength(65535)
+                                    ->placeholder('Enter resume details in Arabic'),
                             ]),
-                    ]),
 
+                        // Section for Services and Media
+                        Forms\Components\Section::make('Services and Media')
+                            ->schema([
+                                Forms\Components\MultiSelect::make('services')
+                                    ->label('Services Provided')
+                                    ->relationship('services', 'title_en')
+                                    ->nullable(),
+
+                                Forms\Components\Repeater::make('images')
+                                    ->label('Images')
+                                    ->relationship('images')
+                                    ->maxItems(1)
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('path')
+                                            ->label('Upload Image')
+                                            ->preserveFilenames()
+                                            ->directory('image/MedicalTeams')
+                                            ->imageEditor()
+                                            ->getUploadedFileNameForStorageUsing(
+                                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                                    ->prepend(now()->timestamp),
+                                            )
+                                            ->openable()
+                                            ->downloadable()
+                                            ->required()
+                                            ->helperText('Upload a clear image of the medical team member.'),
+
+                                        Forms\Components\Grid::make(2)
+                                            ->schema([
+                                                Forms\Components\TextInput::make('alt_en')
+                                                    ->label('Alt Text (English)')
+                                                    ->required()
+                                                    ->placeholder('Enter alt text for the image in English'),
+
+                                                Forms\Components\TextInput::make('alt_ar')
+                                                    ->label('Alt Text (Arabic)')
+                                                    ->required()
+                                                    ->placeholder('Enter alt text for the image in Arabic'),
+                                            ]),
+                                    ]),
+
+                                Forms\Components\Repeater::make('videos')
+                                    ->label('Videos')
+                                    ->relationship('videos')
+                                    ->maxItems(1)
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('path')
+                                            ->label('Upload Video')
+                                            ->preserveFilenames()
+                                            ->directory('video/MedicalTeams')
+                                            ->getUploadedFileNameForStorageUsing(
+                                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                                    ->prepend(now()->timestamp),
+                                            )
+                                            ->openable()
+                                            ->downloadable()
+                                            ->required()
+                                            ->helperText('Upload a clear video introduction of the team member.'),
+
+                                        Forms\Components\Grid::make(2)
+                                            ->schema([
+                                                Forms\Components\TextInput::make('description_en')
+                                                    ->label('Description (English)')
+                                                    ->required()
+                                                    ->placeholder('Enter video description in English'),
+
+                                                Forms\Components\TextInput::make('description_ar')
+                                                    ->label('Description (Arabic)')
+                                                    ->required()
+                                                    ->placeholder('Enter video description in Arabic'),
+                                            ]),
+                                    ]),
+                            ]),
+                    ])
+                    ->columnSpanFull(), // Full width for the card
             ]);
     }
 

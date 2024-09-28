@@ -26,14 +26,28 @@ class WorkingTimeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('days')
+                    ->label('Working Days')
+                    ->placeholder('Enter the working days (e.g., Monday to Friday)')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->helperText('Example: Monday to Friday'),
+
                 Forms\Components\TimePicker::make('of_time')
-                    ->required(),
+                    ->label('Start Time')
+                    ->placeholder('Select the starting time')
+                    ->required()
+                    ->minutesStep(15)
+                    ->helperText('Choose the start time of the working hours'),
+
                 Forms\Components\TimePicker::make('until_time')
-                    ->required(),
+                    ->label('End Time')
+                    ->placeholder('Select the ending time')
+                    ->required()
+                    ->minutesStep(15)
+                    ->helperText('Choose the end time of the working hours'),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {

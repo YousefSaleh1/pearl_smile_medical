@@ -26,54 +26,91 @@ class BlogResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title_en')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('title_ar')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\MarkdownEditor::make('description_en')
-                    ->required()
-                    ->maxLength(65535),
-                Forms\Components\MarkdownEditor::make('description_ar')
-                    ->required()
-                    ->maxLength(65535),
-                Forms\Components\TextInput::make('tags_en')
-                    ->required(),
-                Forms\Components\TextInput::make('tags_ar')
-                    ->required(),
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('title_en')
+                            ->label('Title (English)')
+                            ->placeholder('Enter the blog title in English')
+                            ->required()
+                            ->maxLength(255)
+                            ->helperText('This title will appear in the English version of the blog'),
+
+                        Forms\Components\TextInput::make('title_ar')
+                            ->label('Title (Arabic)')
+                            ->placeholder('Enter the blog title in Arabic')
+                            ->required()
+                            ->maxLength(255)
+                            ->helperText('This title will appear in the Arabic version of the blog'),
+                    ]),
+
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\MarkdownEditor::make('description_en')
+                            ->label('Description (English)')
+                            ->placeholder('Enter the blog description in English')
+                            ->required()
+                            ->maxLength(65535)
+                            ->helperText('Detailed description in English'),
+
+                        Forms\Components\MarkdownEditor::make('description_ar')
+                            ->label('Description (Arabic)')
+                            ->placeholder('Enter the blog description in Arabic')
+                            ->required()
+                            ->maxLength(65535)
+                            ->helperText('Detailed description in Arabic'),
+                    ]),
+
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('tags_en')
+                            ->label('Tags (English)')
+                            ->placeholder('e.g., cosmetic surgery, Botox, fillers')
+                            ->required()
+                            ->helperText('For example: cosmetic surgery, laser treatment, skin rejuvenation'),
+
+                        Forms\Components\TextInput::make('tags_ar')
+                            ->label('Tags (Arabic)')
+                            ->placeholder('مثال: جراحة تجميلية، بوتوكس، مواد مالئة')
+                            ->required()
+                            ->helperText('على سبيل المثال: جراحة تجميلية، علاج بالليزر، تجديد البشرة'),
+                    ]),
+
                 Forms\Components\Repeater::make('images')
-                ->label('Image')
-                ->relationship('images')
-                ->maxItems(1)
-                ->columnSpan('full')
-                ->schema([
-                    Forms\Components\FileUpload::make('path')
-                        ->label('Upload Image')
-                        ->preserveFilenames()
-                        ->directory('image/Blogs')
-                        ->imageEditor()
-                        ->getUploadedFileNameForStorageUsing(
-                            fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                ->prepend(now()->timestamp),
-                        )
-                        ->openable()
-                        ->downloadable()
-                        ->required(),
+                    ->label('Images')
+                    ->relationship('images')
+                    ->maxItems(1)
+                    ->columnSpan('full')
+                    ->schema([
+                        Forms\Components\FileUpload::make('path')
+                            ->label('Upload Image')
+                            ->preserveFilenames()
+                            ->directory('image/Blogs')
+                            ->imageEditor()
+                            ->getUploadedFileNameForStorageUsing(
+                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                    ->prepend(now()->timestamp),
+                            )
+                            ->openable()
+                            ->downloadable()
+                            ->required(),
 
-                    Forms\Components\Grid::make(2) // Create a grid layout for alt text
-                        ->schema([
-                            Forms\Components\TextInput::make('alt_en')
-                                ->label('Alt Text (English)')
-                                ->required(),
+                        Forms\Components\Grid::make(2)
+                            ->schema([
+                                Forms\Components\TextInput::make('alt_en')
+                                    ->label('Alt Text (English)')
+                                    ->placeholder('Enter alternative text for the image in English')
+                                    ->required(),
 
-                            Forms\Components\TextInput::make('alt_ar')
-                                ->label('Alt Text (Arabic)')
-                                ->required(),
-                        ]),
-                ])
-        ]);
+                                Forms\Components\TextInput::make('alt_ar')
+                                    ->label('Alt Text (Arabic)')
+                                    ->placeholder('Enter alternative text for the image in Arabic')
+                                    ->required(),
+                            ]),
+                    ]),
+            ]);
     }
+
+
 
     public static function table(Table $table): Table
     {

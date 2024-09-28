@@ -26,63 +26,85 @@ class AboutResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('description_en')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\Textarea::make('description_ar')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('facebook_link')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('instegram_link')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('whatsapp')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone_numbers')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address_en')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('address_ar')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Repeater::make('videos')
-                    ->label('Video')
-                    ->relationship('videos')
+                Forms\Components\Grid::make(2)
                     ->schema([
-                        Forms\Components\FileUpload::make('path')
-                            ->label('Upload Video')
-                            ->preserveFilenames()
-                            ->directory('video/Galary')
-                            ->getUploadedFileNameForStorageUsing(
-                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                    ->prepend(now()->timestamp),
-                            )
-                            ->openable()
-                            ->downloadable()
-                            ->nullable(),
-                        Forms\Components\Grid::make(2)
-                            ->schema([
-                                Forms\Components\TextInput::make('description_en')
-                                    ->label('Description (English)'),
+                        Forms\Components\Textarea::make('description_en')
+                            ->label('Description (English)')
+                            ->required()
+                            ->maxLength(65535),
+                        Forms\Components\Textarea::make('description_ar')
+                            ->label('Description (Arabic)')
+                            ->required()
+                            ->maxLength(65535),
+                    ]),
 
-                                Forms\Components\TextInput::make('description_ar')
-                                    ->label('Description (Arabic)'),
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('address_en')
+                            ->label('Address (English)')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('address_ar')
+                            ->label('Address (Arabic)')
+                            ->required()
+                            ->maxLength(255),
+                    ]),
+
+                Forms\Components\Grid::make(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('email')
+                            ->label('Email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone_numbers')
+                            ->label('Phone Numbers')
+                            ->tel()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('facebook_link')
+                            ->label('Facebook Link')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('instegram_link')
+                            ->label('Instagram Link')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('whatsapp')
+                            ->label('WhatsApp')
+                            ->required()
+                            ->maxLength(255),
+                    ]),
+
+                Forms\Components\Section::make('Videos')
+                    ->schema([
+                        Forms\Components\Repeater::make('videos')
+                            ->label('Video')
+                            ->relationship('videos')
+                            ->schema([
+                                Forms\Components\FileUpload::make('path')
+                                    ->label('Upload Video')
+                                    ->preserveFilenames()
+                                    ->directory('video/Galary')
+                                    ->getUploadedFileNameForStorageUsing(
+                                        fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
+                                            ->prepend(now()->timestamp),
+                                    )
+                                    ->openable()
+                                    ->downloadable()
+                                    ->nullable(),
+                                Forms\Components\Grid::make(2)
+                                    ->schema([
+                                        Forms\Components\TextInput::make('description_en')
+                                            ->label('Description (English)'),
+                                        Forms\Components\TextInput::make('description_ar')
+                                            ->label('Description (Arabic)'),
+                                    ]),
                             ]),
                     ]),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {

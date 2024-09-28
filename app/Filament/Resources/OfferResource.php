@@ -33,9 +33,12 @@ class OfferResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('service_id')
                             ->relationship('service', 'title_en')
-                            ->required(),
+                            ->required()
+                            ->label('Select Service')
+                            ->placeholder('Choose a service...'),
+
                         Forms\Components\Repeater::make('images')
-                            ->label('Images')
+                            ->label('Upload Images')
                             ->relationship('images')
                             ->maxItems(2)
                             ->schema([
@@ -52,26 +55,30 @@ class OfferResource extends Resource
                                     ->downloadable()
                                     ->required(),
 
-                                Forms\Components\Grid::make(2) // Create a grid layout for alt text
+                                Forms\Components\Grid::make(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('alt_en')
                                             ->label('Alt Text (English)')
                                             ->minLength(2)
                                             ->maxLength(100)
-                                            ->required(),
+                                            ->required()
+                                            ->placeholder('Enter alt text for the image in English'),
 
                                         Forms\Components\TextInput::make('alt_ar')
                                             ->label('Alt Text (Arabic)')
                                             ->minLength(2)
                                             ->maxLength(100)
-                                            ->required(),
+                                            ->required()
+                                            ->placeholder('Enter alt text for the image in Arabic'),
                                     ]),
                             ])
-                            ->createItemButtonLabel('Add Image'),
+                            ->createItemButtonLabel('Add Another Image'),
                     ])
                     ->columnSpanFull()
+                    ->description('Please fill in all the required fields and upload images related to the offer.'),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {

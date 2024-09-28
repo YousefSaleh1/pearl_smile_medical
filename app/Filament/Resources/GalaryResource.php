@@ -31,11 +31,15 @@ class GalaryResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('category')
+                Forms\Components\Select::make('category')
+                    ->label('Category')
                     ->options(Category::class)
-                    ->columnSpan('full'),
+                    ->columnSpan('full')
+                    ->required()
+                    ->placeholder('Select a category'),
+
                 Forms\Components\Repeater::make('images')
-                    ->label('Image')
+                    ->label('Images')
                     ->relationship('images')
                     ->schema([
                         Forms\Components\FileUpload::make('path')
@@ -49,19 +53,27 @@ class GalaryResource extends Resource
                             )
                             ->openable()
                             ->downloadable()
-                            ->nullable(),
+                            ->required(),
 
-                        Forms\Components\Grid::make(2) // Create a grid layout for alt text
+                        Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('alt_en')
-                                    ->label('Alt Text (English)'),
+                                    ->label('Alt Text (English)')
+                                    ->placeholder('Enter alt text in English')
+                                    ->required(),
 
                                 Forms\Components\TextInput::make('alt_ar')
-                                    ->label('Alt Text (Arabic)'),
+                                    ->label('Alt Text (Arabic)')
+                                    ->placeholder('Enter alt text in Arabic')
+                                    ->required(),
                             ]),
-                    ]),
+                    ])
+                    ->columns(1)
+                    ->maxItems(5)
+                    ->defaultItems(1),
+
                 Forms\Components\Repeater::make('videos')
-                    ->label('Video')
+                    ->label('Videos')
                     ->relationship('videos')
                     ->schema([
                         Forms\Components\FileUpload::make('path')
@@ -74,18 +86,26 @@ class GalaryResource extends Resource
                             )
                             ->openable()
                             ->downloadable()
-                            ->nullable(),
+                            ->required(),
+
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('description_en')
-                                    ->label('Description (English)'),
+                                    ->label('Description (English)')
+                                    ->placeholder('Enter video description in English'),
 
                                 Forms\Components\TextInput::make('description_ar')
-                                    ->label('Description (Arabic)'),
+                                    ->label('Description (Arabic)')
+                                    ->placeholder('Enter video description in Arabic'),
                             ]),
-                    ]),
+                    ])
+                    ->columns(1)
+                    ->maxItems(5)
+                    ->defaultItems(1),
             ]);
     }
+
+
 
     public static function table(Table $table): Table
     {

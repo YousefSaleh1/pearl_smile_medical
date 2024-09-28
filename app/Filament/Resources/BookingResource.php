@@ -29,30 +29,46 @@ class BookingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('service_id')
-                    ->relationship('service', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->label('Name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->label('Email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('phone_number')
-                    ->label('Phone Number')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('message')
-                    ->label('Message')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpanFull(),
+                Forms\Components\Card::make()
+                    ->schema([
+                        Forms\Components\Select::make('service_id')
+                            ->relationship('service', 'name')
+                            ->label('Select Service')
+                            ->required()
+                            ->placeholder('Choose a service'),
+
+                        Forms\Components\TextInput::make('name')
+                            ->label('Your Name')
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('Enter your full name'),
+
+                        Forms\Components\TextInput::make('email')
+                            ->label('Your Email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('example@domain.com'),
+
+                        Forms\Components\TextInput::make('phone_number')
+                            ->label('Phone Number')
+                            ->tel()
+                            ->required()
+                            ->maxLength(255)
+                            ->placeholder('+1234567890'),
+
+                        Forms\Components\Textarea::make('message')
+                            ->label('Message (Optional)')
+                            ->maxLength(65535)
+                            ->placeholder('Any additional information or requests...')
+                            ->rows(4)
+                            ->columnSpanFull(),
+                    ])
+                    ->columnSpanFull()
+                    ->description('Please fill in all required fields for your booking.'),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
