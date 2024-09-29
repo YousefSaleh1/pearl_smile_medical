@@ -20,8 +20,10 @@ class AboutSeeder extends Seeder
             'email' =>'preal@gmail.com',
             'facebook_link' =>'preal@facebook.com',
             'instegram_link' =>'preal@instagram.com',
-            'whatsapp' =>'+234809820938',
-            'phone_numbers' =>'+434234234324',
+            'tiktok_link' =>'preal@tiktok.com',
+            'phone_number' =>'011 971 54662',
+            'mobile_numbers' => ['+971809820938', '+97180943434'],
+            'whatsapp' =>'www.whatsapp.com/pearl:7686hhjhlsd',
             'address_en' =>'Entifadah Rd - Al Majaz 3 - Al Majaz - Sharjah - United Arab Emirates',
             'address_ar' =>'طريق الانتفاضة - المجاز 3 - المجاز - الشارقة - الإمارات العربية المتحدة'
         ]);

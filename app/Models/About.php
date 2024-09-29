@@ -21,10 +21,16 @@ class About extends Model
         'email',
         'facebook_link',
         'instegram_link',
+        'tiktok_link',
+        'phone_number',
+        'mobile_numbers',
         'whatsapp',
-        'phone_numbers',
         'address_en',
         'address_ar'
+    ];
+
+    protected $casts = [
+        'mobile_numbers' => 'array',
     ];
 
     /**
