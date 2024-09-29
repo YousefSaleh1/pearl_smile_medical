@@ -57,11 +57,15 @@ class AboutResource extends Resource
                             ->email()
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('phone_numbers')
-                            ->label('Phone Numbers')
+                        Forms\Components\TextInput::make('phone_number')
+                            ->label('Phone Number')
                             ->tel()
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('mobile_numbers')
+                            ->label('Mobile Numbers')
+                            ->required()
+                            ->helperText('For example: +971809820938,+97180943434,+97180943434'),
                         Forms\Components\TextInput::make('facebook_link')
                             ->label('Facebook Link')
                             ->required()
@@ -70,10 +74,15 @@ class AboutResource extends Resource
                             ->label('Instagram Link')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('tiktok_link')
+                            ->label('TikTok Link')
+                            ->required()
+                            ->maxLength(255),
                         Forms\Components\TextInput::make('whatsapp')
                             ->label('WhatsApp')
                             ->required()
-                            ->maxLength(255),
+                            ->maxLength(255)
+                            ->helperText('You should add the whatsapp link not number'),
                     ]),
 
                 Forms\Components\Section::make('Videos')
@@ -116,9 +125,25 @@ class AboutResource extends Resource
                 Tables\Columns\TextColumn::make('whatsapp')
                     ->label('Whatsapp')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone_numbers')
+                Tables\Columns\TextColumn::make('facebook_link')
+                    ->label('facebook link')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('instegram_link')
+                    ->label('Instagram link')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('tiktok_link')
+                    ->label('TikTok link')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('phone_number')
                     ->label('Phone Number')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('mobile_numbers')
+                    ->label('Mobile Numbers')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('address_en')
                     ->label('Address')
                     ->words(5)
