@@ -16,10 +16,10 @@ class ApiResponseService
      *
      *
      */
-   public static function success($data = null, $message = 'Operation Succeful', $status = 200)
+   public static function success($data = null, $message = 'general.operation_succeful', $status = 200)
    {
         return response()->json([
-            "status"=> 'succses',
+            "status"=> trans('general.success'),
             "message"=> trans($message),
             "data"=> $data,
         ],$status);
@@ -33,11 +33,11 @@ class ApiResponseService
      * @param mixed $data The data to return in the response.
      * @return \Illuminate\Http\JsonResponse The JSON response.
      */
-    public static function error($message = 'Operation failed', $status = 400, $data = null)
+    public static function error($message = 'general.operation_failed', $status = 400, $data = null)
     {
         return response()->json([
-            'status' => 'error',
-            'message' => trans($message),
+            'status' => trans('general.error'),
+            'message'=>trans($message),
             'data' => $data,
         ], $status);
     }

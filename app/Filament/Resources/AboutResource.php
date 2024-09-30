@@ -68,18 +68,22 @@ class AboutResource extends Resource
                             ->helperText('For example: +971809820938,+97180943434,+97180943434'),
                         Forms\Components\TextInput::make('facebook_link')
                             ->label('Facebook Link')
+                            ->url()
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('instegram_link')
                             ->label('Instagram Link')
+                            ->url()
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('tiktok_link')
                             ->label('TikTok Link')
+                            ->url()
                             ->required()
                             ->maxLength(255),
                         Forms\Components\TextInput::make('whatsapp')
                             ->label('WhatsApp')
+                            ->url()
                             ->required()
                             ->maxLength(255)
                             ->helperText('You should add the whatsapp link not number'),

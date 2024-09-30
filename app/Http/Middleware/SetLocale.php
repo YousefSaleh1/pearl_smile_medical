@@ -15,10 +15,13 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        app()->setLocale('en');
+        // Check header request and determine localization
+        $local = $request->hasHeader('Accept-Language') ? $request->header('Accept-Language') : 'en';
 
-        if ($request->hasHeader('lang') && $request->hasHeader('lang') == 'ar')
-            app()->setLocale('ar');
+        // Ensure the local is a string
+        $local = is_array($local) ? 'en' : $local;
+
+        app()->setLocale($local);
 
         return $next($request);
     }
