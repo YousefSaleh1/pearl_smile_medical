@@ -39,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                
+
             ])
             ->navigationGroups([
                 NavigationGroup::make()
@@ -69,6 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->sidebarFullyCollapsibleOnDesktop()
             ->brandLogo(asset('Logo.svg'))
+            ->brandLogoHeight('2rem')
             ->favicon(asset('Logo.ico'))
             ->databaseNotifications()
             ->darkMode(false);
