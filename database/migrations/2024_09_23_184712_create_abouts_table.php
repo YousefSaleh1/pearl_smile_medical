@@ -17,9 +17,11 @@ return new class extends Migration
             $table->text('description_ar');
             $table->string('email');
             $table->string('facebook_link');
+            $table->string('tiktok_link');
             $table->string('instegram_link');
             $table->string('whatsapp');
-            $table->string('phone_numbers');
+            $table->string('phone_number');
+            $table->json('mobile_numbers');
             $table->string('address_en');
             $table->string('address_ar');
             $table->timestamps();

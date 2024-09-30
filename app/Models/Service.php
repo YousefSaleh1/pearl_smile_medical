@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Image;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Service extends Model
 {
@@ -71,5 +73,19 @@ class Service extends Model
     public function medical_teams(): BelongsToMany
     {
         return $this->belongsToMany(MedicalTeam::class, 'medical_team_service');
+    }
+
+
+       /**
+     * Get all of the images for the service.
+     *
+     * This method defines a polymorphic one-to-many relationship between the service and Image models,
+     * where the service can have many associated images, and the images can belong to different models.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function images(): MorphMany
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
