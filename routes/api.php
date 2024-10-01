@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\GalaryController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MedicalTeamController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\ServiceController;
@@ -33,9 +34,10 @@ Route::get('clinic-info', [ServiceController::class, 'getClinicInfo']);
 
 Route::get('specialties-slider', [MedicalTeamController::class, 'index']);
 
-Route::get('galary', [GalaryController::class, 'index']);
-
 Route::get('contacts-info', [AboutController::class, 'getContactsInfo']);
 
 Route::get('about-us', [AboutController::class, 'getAboutUs']);
 
+Route::get('photo-gallery', [GalleryController::class, 'photoGallery']);
+
+Route::get('video-gallery', [GalleryController::class, 'videoGallery']);
