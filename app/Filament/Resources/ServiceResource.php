@@ -75,16 +75,16 @@ class ServiceResource extends Resource
                                                     ->columnSpanFull()
                                                     ->nullable()
                                                     ->placeholder('Select Medical Teams'),
-                                                Forms\Components\Repeater::make('images')
+                                                Forms\Components\Repeater::make('service_images')
                                                     ->label('Images')
-                                                    ->relationship('images')
+                                                    ->relationship('service_images')
                                                     ->maxItems(1)
                                                     ->columnSpan('full')
                                                     ->schema([
                                                         Forms\Components\FileUpload::make('path')
                                                             ->label('Upload Image')
                                                             ->preserveFilenames()
-                                                            ->directory('image/Blogs')
+                                                            ->directory('image/Srvices')
                                                             ->imageEditor()
                                                             ->getUploadedFileNameForStorageUsing(
                                                                 fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
@@ -93,14 +93,14 @@ class ServiceResource extends Resource
                                                             ->openable()
                                                             ->downloadable()
                                                             ->required(),
-                                    
+
                                                             Forms\Components\Grid::make(2)
                                                                 ->schema([
                                                                     Forms\Components\TextInput::make('alt_en')
                                                                         ->label('Alt Text (English)')
                                                                         ->placeholder('Enter alternative text for the image in English')
                                                                         ->required(),
-                                    
+
                                                                     Forms\Components\TextInput::make('alt_ar')
                                                                         ->label('Alt Text (Arabic)')
                                                                         ->placeholder('Enter alternative text for the image in Arabic')

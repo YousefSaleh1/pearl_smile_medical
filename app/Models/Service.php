@@ -84,7 +84,7 @@ class Service extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    public function images(): MorphMany
+    public function service_images(): MorphMany
     {
         return $this->morphMany(Image::class, 'imageable');
     }
