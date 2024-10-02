@@ -97,9 +97,9 @@ class AboutResource extends Resource
                             ->schema([
                                 Forms\Components\FileUpload::make('path')
                                     ->label('Upload Video')
-                                    ->maxSize(500000)
+                                    ->moveFiles()
                                     ->preserveFilenames()
-                                    ->directory('video/Galary')
+                                    ->directory('video/About')
                                     ->getUploadedFileNameForStorageUsing(
                                         fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
                                             ->prepend(now()->timestamp),
