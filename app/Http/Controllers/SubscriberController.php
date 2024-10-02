@@ -9,7 +9,11 @@ use App\Http\Requests\SubscriberRequest;
 
 class SubscriberController extends Controller
 {
-
+    /**
+     * add new subscriber
+     * @param \App\Http\Requests\SubscriberRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(SubscriberRequest $request){
         $data = $request->validated();
         $subscriber = Subscriber::create([

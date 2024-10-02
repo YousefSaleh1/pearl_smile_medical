@@ -17,7 +17,7 @@ class Section extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'srvice_id',
+        'service_id',
         'section_name_en',
         'section_name_ar',
         'description_en',

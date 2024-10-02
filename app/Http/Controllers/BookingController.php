@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    /**
+     * booking a service from services that the clinic provide to customer 
+     * @param \App\Http\Requests\BookingRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(BookingRequest $request)
     {
         $data = $request->validated();
