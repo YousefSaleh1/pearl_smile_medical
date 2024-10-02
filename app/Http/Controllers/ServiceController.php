@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Service\ServiceSliderResource;
-use App\Models\MedicalTeam;
 use App\Models\Service;
-use App\Services\ApiResponseService;
+use App\Models\MedicalTeam;
 use Illuminate\Http\Request;
+use App\Services\ApiResponseService;
+use App\Http\Resources\Service\ServiceDetailResource;
+use App\Http\Resources\Service\ServiceSliderResource;
+use App\Http\Resources\Service\ServicesNamesResource;
+use App\Http\Resources\MedicalTeam\SpecialistsNamesResource;
 
 class ServiceController extends Controller
 {
@@ -22,6 +25,17 @@ class ServiceController extends Controller
         return ApiResponseService::success(ServiceSliderResource::collection($services));
     }
 
+
+    public function show(Service $service) {
+        $service->load(['sections','faqs', 'offers','medical_teams']);
+        return ApiResponseService::success(new ServiceDetailResource($service));
+    }
+
+
+    /**
+     * get the number of services and Specialists in the clinic
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getClinicInfo()
     {
         $data = [
@@ -31,4 +45,18 @@ class ServiceController extends Controller
 
         return ApiResponseService::success($data);
     }
+
+
+    /**
+     * get list of names of services provided by the clinic
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getServicesNames(){
+        $services = Service::select('id','title_' . app()->getLocale())->get();
+        return ApiResponseService::success(ServicesNamesResource::collection($services));
+
+    }
+
+
+
 }

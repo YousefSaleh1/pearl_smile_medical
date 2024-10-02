@@ -92,6 +92,7 @@ class OfferResource extends Resource
                     ->label('Images')
                     ->circular()
                     ->stacked()
+                    ->size(50)
                     ->ring(1)
                     ->limit(3)
                     ->limitedRemainingText()

@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class OfferController extends Controller
 {
+    /**
+     * get all offers that provided to customers
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $offers = Offer::select('id')

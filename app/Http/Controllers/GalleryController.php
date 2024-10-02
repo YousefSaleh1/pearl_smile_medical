@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 
 class GalleryController extends Controller
 {
+    /**
+     * get the photo gallery 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function photoGallery()
     {
         $photo_gallery = PhotoGallery::with(['images' => function ($query) {
@@ -23,6 +27,10 @@ class GalleryController extends Controller
         return ApiResponseService::success(PhotoGalleryResource::collection($photo_gallery));
     }
 
+    /**
+     * get the video gallery 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function videoGallery()
     {
         $video_gallery = VideoGallery::with(['videos' => function ($query) {
