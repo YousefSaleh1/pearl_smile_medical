@@ -20,8 +20,8 @@ class ServiceDetailResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'      => $this->id,
-            'title'   => $this->{'title_' . app()->getLocale()},
+            'id'            => $this->id,
+            'title'         => $this->{'title_' . app()->getLocale()},
             'description'   => $this->{'description_' . app()->getLocale()},
             'image'         => new ImageResource($this->service_images->first()),
             'sections' => SectionResource::collection($this->whenLoaded('sections')),

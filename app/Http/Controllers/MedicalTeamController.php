@@ -12,7 +12,7 @@ use App\Http\Resources\MedicalTeam\MedicalTeamSliderResource;
 class MedicalTeamController extends Controller
 {
     /**
-     * get  all Specialists with there images 
+     * get  all Specialists with there images
      * @return \Illuminate\Http\JsonResponse
      */
     public function index()
@@ -31,15 +31,32 @@ class MedicalTeamController extends Controller
      * get names of all Specialists in the clinic
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getSpecialistsNames() {
+    public function getSpecialistsNames()
+    {
         $medicalTeams = MedicalTeam::select('id', 'name_' . app()->getLocale())->get();
         return ApiResponseService::success(SpecialistsNamesResource::collection($medicalTeams));
     }
 
 
-    public function show(MedicalTeam $specialist) {
-        $specialist->load('services');
+    public function show(MedicalTeam $specialist)
+    {
+        $locale = app()->getLocale();
+
+        $specialist->load([
+            'services' => function ($query) use ($locale) {
+                $query->select('id', 'title_' . $locale)
+                    ->with(['service_images' => function ($query) use ($locale) {
+                        $query->select('id', 'imageable_type', 'imageable_id', 'path', 'alt_' . $locale);
+                    }]);
+            },
+            'images' => function ($query) use ($locale) {
+                $query->select('id', 'imageable_type', 'imageable_id', 'path', 'alt_' . $locale);
+            },
+            'videos' => function ($query) use ($locale) {
+                $query->select('id', 'videoable_type', 'videoable_id', 'path', 'description_' . $locale);
+            }
+        ]);
+
         return ApiResponseService::success(new SpecialistInfoResource($specialist));
     }
-
 }

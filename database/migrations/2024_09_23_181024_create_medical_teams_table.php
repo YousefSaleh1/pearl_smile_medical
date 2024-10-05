@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('specializations_ar');
             $table->text('resume_en');
             $table->text('resume_ar');
-            $table->string('phone_number');
             $table->timestamps();
         });
     }
