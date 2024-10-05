@@ -15,7 +15,7 @@ class PhotoGalleryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'photos' => ImageResource::collection($this->images),
+            'photos' => ImageResource::collection($this->whenLoaded('images')),
         ];
     }
 }

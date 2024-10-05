@@ -19,12 +19,12 @@ class ServiceDetailResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'      => $this->id,
-            'title'   => $this->{'title_' . app()->getLocale()},
+            'id'            => $this->id,
+            'title'         => $this->{'title_' . app()->getLocale()},
             'description'   => $this->{'description_' . app()->getLocale()},
-            'sections' => SectionResource::collection($this->whenLoaded('sections')),
-            'faqs'     => FAQResource::collection($this->whenLoaded('faqs')),
-            'offers'   => OfferResource::collection($this->whenLoaded('offers')),
+            'sections'      => SectionResource::collection($this->whenLoaded('sections')),
+            'faqs'          => FAQResource::collection($this->whenLoaded('faqs')),
+            'offers'        => OfferResource::collection($this->whenLoaded('offers')),
             'medical_teams' => MedicalTeamSliderResource::collection($this->whenLoaded('medical_teams')),
         ];
     }

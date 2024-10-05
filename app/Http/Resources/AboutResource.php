@@ -17,7 +17,7 @@ class AboutResource extends JsonResource
         return [
             'id'          => $this->id,
             'description' => $this->{'description_'.app()->getLocale()},
-            'video'       => new VideoResource($this->videos->first())
+            'video'       => new VideoResource($this->whenLoaded('videos')->first())
         ];
     }
 }

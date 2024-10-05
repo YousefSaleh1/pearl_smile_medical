@@ -23,7 +23,6 @@ class MedicalTeam extends Model
         'specializations_ar',
         'resume_en',
         'resume_ar',
-        'phone_number'
     ];
 
 

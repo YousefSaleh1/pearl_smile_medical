@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources\MedicalTeam;
 
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Service\ServiceSliderResource;
+use App\Http\Resources\VideoResource;
 
 class SpecialistInfoResource extends JsonResource
 {
@@ -16,12 +18,13 @@ class SpecialistInfoResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'                 => $this->id,
-            'name'               => $this->{'name_'.app()->getLocale()},
-            'specializations'    => $this->{'specializations_'.app()->getLocale()},
-            'resume'             => $this->{'resume_'.app()->getLocale()},
-            'phone_number'       => $this->phone_number,
-            'services'           => ServiceSliderResource::collection($this->services)
+            'id'              => $this->id,
+            'name'            => $this->{'name_'.app()->getLocale()},
+            'specializations' => $this->{'specializations_'.app()->getLocale()},
+            'resume'          => $this->{'resume_'.app()->getLocale()},
+            'image'           => new ImageResource($this->whenLoaded('images')->first()),
+            'video'           => new VideoResource($this->whenLoaded('videos')->first()),
+            'services'        => ServiceSliderResource::collection($this->whenLoaded('services'))
         ];
     }
 }
