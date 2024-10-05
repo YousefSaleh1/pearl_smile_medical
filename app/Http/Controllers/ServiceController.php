@@ -27,7 +27,7 @@ class ServiceController extends Controller
 
 
     public function show(Service $service) {
-        $service->load(['sections','faqs', 'offers','medical_teams']);
+        $service->load(['sections','faqs', 'offers','medical_teams','service_images']);
         return ApiResponseService::success(new ServiceDetailResource($service));
     }
 
