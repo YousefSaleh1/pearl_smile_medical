@@ -18,7 +18,7 @@ class ServiceSliderResource extends JsonResource
         return [
             'id'    => $this->id,
             'title' => $this->{'title_'.app()->getLocale()},
-            'image' => new ImageResource($this->service_images->first()),
+            'image' => new ImageResource($this->whenLoaded('service_images')->first()),
         ];
     }
 }

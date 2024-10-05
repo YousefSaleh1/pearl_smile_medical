@@ -48,23 +48,6 @@ class MedicalTeamResource extends Resource
                                             ->maxLength(255)
                                             ->placeholder('Enter name in Arabic'),
                                     ]),
-
-                                Forms\Components\Grid::make(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('phone_number')
-                                            ->label('Phone Number')
-                                            ->tel()
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->placeholder('Enter phone number'),
-
-                                        Forms\Components\TextInput::make('email')
-                                            ->label('Email Address')
-                                            ->email()
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->placeholder('example@domain.com'),
-                                    ]),
                             ]),
 
                         // Section for Professional Details
@@ -193,10 +176,6 @@ class MedicalTeamResource extends Resource
                     ->label('Resume')
                     ->words(6)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
-                    ->label('Phone Number')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->searchable()
                     ->label('Created At')
