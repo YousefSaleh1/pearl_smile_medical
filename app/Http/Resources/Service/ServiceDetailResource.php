@@ -4,6 +4,7 @@ namespace App\Http\Resources\Service;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\FAQResource;
+use App\Http\Resources\ImageResource;
 use App\Http\Resources\OfferResource;
 use App\Http\Resources\SectionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -22,6 +23,7 @@ class ServiceDetailResource extends JsonResource
             'id'      => $this->id,
             'title'   => $this->{'title_' . app()->getLocale()},
             'description'   => $this->{'description_' . app()->getLocale()},
+            'image'         => new ImageResource($this->service_images->first()),
             'sections' => SectionResource::collection($this->whenLoaded('sections')),
             'faqs'     => FAQResource::collection($this->whenLoaded('faqs')),
             'offers'   => OfferResource::collection($this->whenLoaded('offers')),
