@@ -4,6 +4,7 @@ namespace App\Http\Resources\Service;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\FAQResource;
+use App\Http\Resources\ImageResource;
 use App\Http\Resources\OfferResource;
 use App\Http\Resources\SectionResource;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -26,6 +27,7 @@ class ServiceDetailResource extends JsonResource
             'faqs'          => FAQResource::collection($this->faqs),
             'offers'        => OfferResource::collection($this->offers),
             'medical_teams' => MedicalTeamSliderResource::collection($this->medical_teams),
+            'image'         => new ImageResource($this->service_images->first()),
         ];
     }
 }
