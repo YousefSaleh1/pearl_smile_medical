@@ -19,7 +19,7 @@ class MedicalTeamSliderResource extends JsonResource
             'id'              => $this->id,
             'name'            => $this->{'name_'.app()->getLocale()},
             'specializations' => $this->{'specializations_'.app()->getLocale()},
-            'image'           => new ImageResource($this->whenLoaded('images')->first())
+            'image'           => new ImageResource($this->images->first())
         ];
     }
 }
