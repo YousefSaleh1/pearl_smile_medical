@@ -74,6 +74,8 @@ class ServiceResource extends Resource
                                                     ->relationship('medical_teams', 'name_en')
                                                     ->columnSpanFull()
                                                     ->nullable()
+                                                    ->searchable()
+                                                    ->preload()
                                                     ->placeholder('Select Medical Teams'),
                                                 Forms\Components\Repeater::make('service_images')
                                                     ->label('Images')
@@ -94,18 +96,18 @@ class ServiceResource extends Resource
                                                             ->downloadable()
                                                             ->required(),
 
-                                                            Forms\Components\Grid::make(2)
-                                                                ->schema([
-                                                                    Forms\Components\TextInput::make('alt_en')
-                                                                        ->label('Alt Text (English)')
-                                                                        ->placeholder('Enter alternative text for the image in English')
-                                                                        ->required(),
+                                                        Forms\Components\Grid::make(2)
+                                                            ->schema([
+                                                                Forms\Components\TextInput::make('alt_en')
+                                                                    ->label('Alt Text (English)')
+                                                                    ->placeholder('Enter alternative text for the image in English')
+                                                                    ->required(),
 
-                                                                    Forms\Components\TextInput::make('alt_ar')
-                                                                        ->label('Alt Text (Arabic)')
-                                                                        ->placeholder('Enter alternative text for the image in Arabic')
-                                                                        ->required(),
-                                                                ]),
+                                                                Forms\Components\TextInput::make('alt_ar')
+                                                                    ->label('Alt Text (Arabic)')
+                                                                    ->placeholder('Enter alternative text for the image in Arabic')
+                                                                    ->required(),
+                                                            ]),
                                                     ]),
                                             ]),
                                     ]),
@@ -287,11 +289,11 @@ class ServiceResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('medical_team_id')
-                ->label('Medical Team')
-                ->relationship('medical_teams', 'name_en')
-                ->searchable()
-                ->preload()
-                ->multiple(),
+                    ->label('Medical Team')
+                    ->relationship('medical_teams', 'name_en')
+                    ->searchable()
+                    ->preload()
+                    ->multiple(),
             ])
             ->deferFilters()
             ->actions([

@@ -40,22 +40,7 @@ class MedicalTeamController extends Controller
 
     public function show(MedicalTeam $specialist)
     {
-        $locale = app()->getLocale();
-
-        $specialist->load([
-            'services' => function ($query) use ($locale) {
-                $query->select('id', 'title_' . $locale)
-                    ->with(['service_images' => function ($query) use ($locale) {
-                        $query->select('id', 'imageable_type', 'imageable_id', 'path', 'alt_' . $locale);
-                    }]);
-            },
-            'images' => function ($query) use ($locale) {
-                $query->select('id', 'imageable_type', 'imageable_id', 'path', 'alt_' . $locale);
-            },
-            'videos' => function ($query) use ($locale) {
-                $query->select('id', 'videoable_type', 'videoable_id', 'path', 'description_' . $locale);
-            }
-        ]);
+        $specialist->load(['services', 'images', 'videos']);
 
         return ApiResponseService::success(new SpecialistInfoResource($specialist));
     }
