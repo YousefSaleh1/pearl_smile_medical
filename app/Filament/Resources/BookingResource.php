@@ -35,6 +35,8 @@ class BookingResource extends Resource
                             ->relationship('service', 'name')
                             ->label('Select Service')
                             ->required()
+                            ->searchable()
+                            ->preload()
                             ->placeholder('Choose a service'),
 
                         Forms\Components\TextInput::make('name')

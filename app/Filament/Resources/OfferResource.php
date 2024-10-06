@@ -35,6 +35,8 @@ class OfferResource extends Resource
                             ->relationship('service', 'title_en')
                             ->required()
                             ->label('Select Service')
+                            ->searchable()
+                            ->preload()
                             ->placeholder('Choose a service...'),
 
                         Forms\Components\Repeater::make('images')

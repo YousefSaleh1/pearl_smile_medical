@@ -90,6 +90,8 @@ class MedicalTeamResource extends Resource
                                 Forms\Components\MultiSelect::make('services')
                                     ->label('Services Provided')
                                     ->relationship('services', 'title_en')
+                                    ->searchable()
+                                    ->preload()
                                     ->nullable(),
 
                                 Forms\Components\Repeater::make('images')
