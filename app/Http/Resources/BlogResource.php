@@ -20,7 +20,7 @@ class BlogResource extends JsonResource
             'title'        => $this->{'title_'. app()->getLocale()},
             'description'  => $this->{'description_'. app()->getLocale()},
             'tags'         => $this->{'tags_'. app()->getLocale()},
-            'image'        => new ImageResource($this->whenLoaded('images')->first())
+            'image'        => new ImageResource($this->images->first())
         ];
     }
 }

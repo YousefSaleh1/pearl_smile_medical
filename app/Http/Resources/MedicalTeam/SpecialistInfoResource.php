@@ -22,9 +22,9 @@ class SpecialistInfoResource extends JsonResource
             'name'            => $this->{'name_'.app()->getLocale()},
             'specializations' => $this->{'specializations_'.app()->getLocale()},
             'resume'          => $this->{'resume_'.app()->getLocale()},
-            'image'           => new ImageResource($this->whenLoaded('images')->first()),
-            'video'           => new VideoResource($this->whenLoaded('videos')->first()),
-            'services'        => ServiceSliderResource::collection($this->whenLoaded('services'))
+            'image'           => new ImageResource($this->images->first()),
+            'video'           => new VideoResource($this->videos->first()),
+            'services'        => ServiceSliderResource::collection($this->services)
         ];
     }
 }

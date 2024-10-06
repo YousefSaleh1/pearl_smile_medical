@@ -23,11 +23,11 @@ class ServiceDetailResource extends JsonResource
             'id'            => $this->id,
             'title'         => $this->{'title_' . app()->getLocale()},
             'description'   => $this->{'description_' . app()->getLocale()},
+            'sections'      => SectionResource::collection($this->sections),
+            'faqs'          => FAQResource::collection($this->faqs),
+            'offers'        => OfferResource::collection($this->offers),
+            'medical_teams' => MedicalTeamSliderResource::collection($this->medical_teams),
             'image'         => new ImageResource($this->service_images->first()),
-            'sections' => SectionResource::collection($this->whenLoaded('sections')),
-            'faqs'     => FAQResource::collection($this->whenLoaded('faqs')),
-            'offers'   => OfferResource::collection($this->whenLoaded('offers')),
-            'medical_teams' => MedicalTeamSliderResource::collection($this->whenLoaded('medical_teams')),
         ];
     }
 }
