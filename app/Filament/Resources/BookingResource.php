@@ -32,7 +32,7 @@ class BookingResource extends Resource
                 Forms\Components\Card::make()
                     ->schema([
                         Forms\Components\Select::make('service_id')
-                            ->relationship('service', 'name')
+                            ->relationship('service', 'title_en')
                             ->label('Select Service')
                             ->required()
                             ->searchable()
