@@ -76,7 +76,7 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('service.name')
+                Tables\Columns\TextColumn::make('service.title_en')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
