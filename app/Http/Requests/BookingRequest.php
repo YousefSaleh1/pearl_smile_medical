@@ -48,6 +48,7 @@ class BookingRequest extends FormRequest
             'message'      => trans('attributes.message'),
         ];
     }
+
     /**
      *  method handles failure of Validation and return message
      * @param \Illuminate\Contracts\Validation\Validator $Validator
@@ -57,6 +58,6 @@ class BookingRequest extends FormRequest
     protected function failedValidation(Validator $Validator)
     {
         $errors = $Validator->errors()->all();
-        throw new HttpResponseException(ApiResponseService::error($errors, 'general.validation_error', 422));
+        throw new HttpResponseException(ApiResponseService::error('general.validation_error', 422, $errors));
     }
 }
