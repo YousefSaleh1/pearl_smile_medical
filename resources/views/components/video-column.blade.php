@@ -1,8 +1,10 @@
 @if ($getRecord()->videos()->exists())
-    <video width="320" height="240" controls>
-        <source src="storage/{{ $getRecord()->videos->first()->path }}">
-        Your browser does not support the video tag.
-    </video>
+
+    <iframe width="320" height="240"
+        src="{{ $getRecord()->videos->first()->path }}"
+        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
 @else
     <p>No video available</p>
 @endif

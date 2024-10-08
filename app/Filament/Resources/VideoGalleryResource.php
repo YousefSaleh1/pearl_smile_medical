@@ -36,19 +36,22 @@ class VideoGalleryResource extends Resource
                     ->relationship('videos')
                     ->maxItems(1)
                     ->schema([
-                        Forms\Components\FileUpload::make('path')
-                            ->label('Upload Video')
-                            ->preserveFilenames()
-                            ->directory('video/Galary')
-                            ->maxSize(409600)
-                            ->acceptedFileTypes(['video/mp4', 'video/ogg', 'video/webm'])
-                            ->getUploadedFileNameForStorageUsing(
-                                fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                    ->prepend(now()->timestamp),
-                            )
-                            ->openable()
-                            ->downloadable()
-                            ->required(),
+                        Forms\Components\TextInput::make('path')
+                            ->label('Video Link')
+                            ->url()
+                            ->required()
+                            ->maxLength(255)
+                            ->helperText('Please enter the video link')
+                            ->reactive()
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $embedLink = str_replace('youtu.be/', 'www.youtube.com/embed/', $state);
+                                $embedLink = strtok($embedLink, '?');
+                                $set('path', $embedLink);
+                            }),
+
+                        Forms\Components\ViewField::make('path')
+                            ->label('Video Preview')
+                            ->view('components.video-preview'),
 
                         Forms\Components\Grid::make(2)
                             ->schema([
@@ -66,6 +69,8 @@ class VideoGalleryResource extends Resource
                     ->columnSpanFull(),
             ]);
     }
+
+
 
     public static function table(Table $table): Table
     {
