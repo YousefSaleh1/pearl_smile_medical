@@ -17,7 +17,7 @@ class VideoResource extends JsonResource
     {
         return [
             'id'           => $this->id,
-            'path'         => asset(Storage::url($this->path)),
+            'path'         => $this->path,
             'description'  => $this->{'description_'.app()->getLocale()},
         ];
     }

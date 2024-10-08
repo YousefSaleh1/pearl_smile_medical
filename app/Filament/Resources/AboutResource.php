@@ -95,18 +95,23 @@ class AboutResource extends Resource
                             ->label('Video')
                             ->relationship('videos')
                             ->schema([
-                                Forms\Components\FileUpload::make('path')
-                                    ->label('Upload Video')
-                                    ->moveFiles()
-                                    ->preserveFilenames()
-                                    ->directory('video/About')
-                                    ->getUploadedFileNameForStorageUsing(
-                                        fn(TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())
-                                            ->prepend(now()->timestamp),
-                                    )
-                                    ->openable()
-                                    ->downloadable()
-                                    ->nullable(),
+                                Forms\Components\TextInput::make('path')
+                                ->label('Video Link')
+                                ->url()
+                                ->required()
+                                ->maxLength(255)
+                                ->helperText('Please enter the video link')
+                                ->reactive()
+                                ->afterStateUpdated(function ($state, callable $set) {
+                                    $embedLink = str_replace('youtu.be/', 'www.youtube.com/embed/', $state);
+                                    $embedLink = strtok($embedLink, '?');
+                                    $set('path', $embedLink);
+                                }),
+
+                            Forms\Components\ViewField::make('path')
+                                ->label('Video Preview')
+                                ->view('components.video-preview'),
+
                                 Forms\Components\Grid::make(2)
                                     ->schema([
                                         Forms\Components\TextInput::make('description_en')
@@ -118,6 +123,7 @@ class AboutResource extends Resource
                     ]),
             ]);
     }
+
 
 
     public static function table(Table $table): Table
