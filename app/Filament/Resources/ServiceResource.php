@@ -199,7 +199,13 @@ class ServiceResource extends Resource
                                                         ->reactive()
                                                         ->afterStateUpdated(function ($state, callable $set) {
                                                             $embedLink = str_replace('youtu.be/', 'www.youtube.com/embed/', $state);
+
+                                                            if (strpos($embedLink, 'youtube.com/shorts/') !== false) {
+                                                                $embedLink = str_replace('youtube.com/shorts/', 'www.youtube.com/embed/', $embedLink);
+                                                            }
+
                                                             $embedLink = strtok($embedLink, '?');
+
                                                             $set('path', $embedLink);
                                                         }),
 
