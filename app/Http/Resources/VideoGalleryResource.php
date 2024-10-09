@@ -15,7 +15,7 @@ class VideoGalleryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'videos' => VideoResource::collection($this->videos)
+            'video' => new VideoResource($this->videos->first())
         ];
     }
 }
