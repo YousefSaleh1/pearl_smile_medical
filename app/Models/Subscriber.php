@@ -26,7 +26,7 @@ class Subscriber extends Model
         parent::boot();
 
         static::created(function ($subscriber) {
-            $recipient = User::where('email', 'admin@admin.com')->first();
+            $recipient = User::first();
             Notification::make()
                 ->title('New Subscriber Added')
                 ->success()
