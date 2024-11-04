@@ -30,7 +30,7 @@ class Booking extends Model
         parent::boot();
 
         static::created(function ($booking) {
-            $recipient = User::where('email', 'admin@admin.com')->first();
+            $recipient = User::first();
             Notification::make()
                 ->title('New Booking Added')
                 ->success()
@@ -54,6 +54,6 @@ class Booking extends Model
      */
     public function service(): BelongsTo
     {
-        return $this->belongsTo(service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
 }

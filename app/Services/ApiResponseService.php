@@ -16,16 +16,16 @@ class ApiResponseService
      *
      *
      */
-   public static function success($data = null, $message = 'general.operation_succeful', $status = 200)
-   {
+    public static function success($data = null, $message = 'general.operation_succeful', $status = 200)
+    {
         return response()->json([
-            "status"=> trans('general.success'),
-            "message"=> trans($message),
-            "data"=> $data,
-        ],$status);
-   }
+            "status" => trans('general.success'),
+            "message" => trans($message),
+            "data" => $data,
+        ], $status);
+    }
 
-   /**
+    /**
      * Return an error JSON response.
      *
      * @param string $message The error message.
@@ -37,7 +37,7 @@ class ApiResponseService
     {
         return response()->json([
             'status' => trans('general.error'),
-            'message'=>trans($message),
+            'message' => trans($message),
             'data' => $data,
         ], $status);
     }

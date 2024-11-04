@@ -27,7 +27,7 @@ class Offer extends Model
      */
     public function service(): BelongsTo
     {
-        return $this->belongsTo(service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     /**
